@@ -32,29 +32,66 @@ generateBtn.addEventListener("click", writePassword);
 function generatePassword() {
   var passwordFinal; //reset
   var letterPart = null; //initialized it
+  var numberPart = null; // initialized
   var passwordLength = prompt("How many characters for your password? [i.e.: 8 to 128]");
   var passwordLengthLetters = (passwordLength - 2); //leave 2 for number and special character
+  var numericYesNo = prompt("Would you like to include number in your password? (y/n)");
+  var specialYesNo = prompt("Would you like to include a special character i.e.: &? (y/n)");
+
   var passSourceAlpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   var passSourceNum = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   var passSourceSpecial = ['!', '$', '&', '-', '*'];
-  //for loop to add letters as long as passwordLength - 2 (2 characters will be , 1.number, 2. special character)
-  for (c = 0; c < passwordLengthLetters; c++) {
-    var i = Math.floor(Math.random() * 26) + 1;
-    console.log("this is value of i: " + i);
-    if (letterPart === null) { var letterPart = passSourceAlpha[i]; }
-    else {
-      var letterPart = (letterPart + passSourceAlpha[i]);
+
+  //Condition: number and special character
+  if (numericYesNo == "y" && specialYesNo == "y") {
+    for (c = 0; c < passwordLengthLetters; c++) {
+      var i = Math.floor(Math.random() * 26) + 1;
+      console.log("this is value of i: " + i);
+      if (letterPart === null) { var letterPart = passSourceAlpha[i]; }
+      else {
+        var letterPart = (letterPart + passSourceAlpha[i]);
+      }
     }
+    var e = Math.floor(Math.random() * 9) + 1;
+    var a = Math.floor(Math.random() * 4) + 1;
+    console.log(i);
+    console.log(e);
+    console.log(a);
+
+
+    var passwordFinal = (letterPart + passSourceNum[e] + passSourceSpecial[a]);
+    // alert("Your generated password: " + passwordFinal);
+    document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+
   }
-  var e = Math.floor(Math.random() * 9) + 1;
-  var a = Math.floor(Math.random() * 4) + 1;
-  console.log(i);
-  console.log(e);
-  console.log(a);
 
 
-  var passwordFinal = (letterPart + passSourceNum[e] + passSourceSpecial[a]);
-  // alert("Your generated password: " + passwordFinal);
-  document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+  //Condition: letters and numbers only [NOT WORKING: NO OUTPUT TO HTML]
+  if (numericYesNo == "y" && specialYesNo == "n") {
+    //for loop to create letter part 
+    for (c = 0; c < passwordLengthLetters; c++) {
+      var i = Math.floor(Math.random() * 26) + 1;
+      console.log("this is value of i: " + i);
+      if (letterPart === null) { var letterPart = passSourceAlpha[i]; }
+      else {
+        var letterPart = (letterPart + passSourceAlpha[i]);
+      }
+    }
+    //for loop to create 2 digit numeric portion
+    for (d = 0; d < 2; d++) {
+      var e = Math.floor(Math.random() * 9) + 1;
+      if (numberPart === null) { var numberPart = passSourceNum[e]; }
+      else {
+        var numberPart = numberPart + passSourceNum[e];
 
+      }
+    }
+    //add all parts 
+    var passwordFinal = (letterPart + numberPart);
+    console.log("passwordFinal :" + passwordFinal);
+    // alert("passwordFinal :" + passwordFinal);
+    // alert("Your generated password: " + passwordFinal);
+    document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+
+  }
 }
