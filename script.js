@@ -37,19 +37,30 @@ function generatePassword() {
   var passwordLengthLetters = (passwordLength - 2); //leave 2 for number and special character
   var numericYesNo = prompt("Would you like to include number in your password? (y/n)");
   var specialYesNo = prompt("Would you like to include a special character i.e.: &? (y/n)");
+  var upperCaseYesNo = prompt("Would you like your password to have upper case letters? (y/n)");
+  var lowerCaseYesNo = prompt("Would you like your password to have lower case letters? (y/n)");
+
 
   var passSourceAlpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   var passSourceNum = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   var passSourceSpecial = ['!', '$', '&', '-', '*'];
 
-  //Condition: number and special character
-  if (numericYesNo == "y" && specialYesNo == "y") {
-    for (c = 0; c < passwordLengthLetters; c++) {
-      var i = Math.floor(Math.random() * 26) + 1;
-      console.log("this is value of i: " + i);
-      if (letterPart === null) { var letterPart = passSourceAlpha[i]; }
-      else {
-        var letterPart = (letterPart + passSourceAlpha[i]);
+
+  //condition: letters [upper AND lower case], number and special character [WORKS]
+
+  if (numericYesNo == "y" && specialYesNo == "y" && upperCaseYesNo == "y" && lowerCaseYesNo == "y") {
+    for (z = 0; z < passwordLengthLetters; z++) {
+      var coinToss = Math.floor(Math.random() * 2) + 1;
+      var i = Math.floor(Math.random() * 25) + 1;
+      console.log("passwordLengthLetter = " + passwordLengthLetters + " z = " + z);
+      console.log("coin toss = " + coinToss);
+      if (letterPart === null) {
+        if (coinToss == 1) { letterPart = passSourceAlpha[i].toUpperCase(); } //init
+        else if (coinToss == 2) { letterPart = passSourceAlpha[i].toLowerCase(); } //init
+      }
+      else if (letterPart !== null) {
+        if (coinToss === 1) { var letterPart = letterPart + passSourceAlpha[i].toUpperCase(); }
+        else if (coinToss === 2) { var letterPart = letterPart + passSourceAlpha[i].toLowerCase(); }
       }
     }
     var e = Math.floor(Math.random() * 9) + 1;
@@ -60,24 +71,75 @@ function generatePassword() {
 
 
     var passwordFinal = (letterPart + passSourceNum[e] + passSourceSpecial[a]);
+    console.log("passwordFinal = " + passwordFinal);
     // alert("Your generated password: " + passwordFinal);
     document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+  }
+
+
+  // letter all uppercase, number, special char [WORKS]
+  else if (numericYesNo == "y" && specialYesNo == "y" && upperCaseYesNo == "y" && lowerCaseYesNo == "n") {
+    if (numericYesNo == "y" && specialYesNo == "y") {
+      for (c = 0; c < passwordLengthLetters; c++) {
+        var i = Math.floor(Math.random() * 25) + 1;
+        console.log("this is value of i: " + i);
+        if (letterPart === null) { var letterPart = passSourceAlpha[i].toUpperCase(); }
+        else if (letterPart !== null) { var letterPart = letterPart + passSourceAlpha[i].toUpperCase(); }
+
+      }
+
+      var e = Math.floor(Math.random() * 9) + 1;
+      var a = Math.floor(Math.random() * 4) + 1;
+      console.log(i);
+      console.log(e);
+      console.log(a);
+
+
+      var passwordFinal = (letterPart + passSourceNum[e] + passSourceSpecial[a]);
+      // alert("Your generated password: " + passwordFinal);
+      document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+
+    }
+
+  }
+
+  // letter all lowercase, number, special char [works]
+  else if (numericYesNo == "y" && specialYesNo == "y" && upperCaseYesNo == "n" && lowerCaseYesNo == "y") {
+    if (numericYesNo == "y" && specialYesNo == "y") {
+      for (c = 0; c < passwordLengthLetters; c++) {
+        var i = Math.floor(Math.random() * 25) + 1;
+        console.log("this is value of i: " + i);
+        if (letterPart === null) { var letterPart = passSourceAlpha[i].toLowerCase(); }
+        else if (letterPart !== null) { var letterPart = letterPart + passSourceAlpha[i].toLowerCase(); }
+
+      }
+
+      var e = Math.floor(Math.random() * 9) + 1;
+      var a = Math.floor(Math.random() * 4) + 1;
+      console.log(i);
+      console.log(e);
+      console.log(a);
+
+
+      var passwordFinal = (letterPart + passSourceNum[e] + passSourceSpecial[a]);
+      // alert("Your generated password: " + passwordFinal);
+      document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+
+    }
 
   }
 
 
-  //Condition: letters and numbers only [NOT WORKING: NO OUTPUT TO HTML]
-  if (numericYesNo == "y" && specialYesNo == "n") {
-    //for loop to create letter part 
+  // letters lower case, number only [works]
+  else if (numericYesNo == "y" && specialYesNo == "n" && upperCaseYesNo == "n" && lowerCaseYesNo == "y") {
     for (c = 0; c < passwordLengthLetters; c++) {
-      var i = Math.floor(Math.random() * 26) + 1;
+      var i = Math.floor(Math.random() * 25) + 1;
       console.log("this is value of i: " + i);
-      if (letterPart === null) { var letterPart = passSourceAlpha[i]; }
-      else {
-        var letterPart = (letterPart + passSourceAlpha[i]);
-      }
+      if (letterPart === null) { var letterPart = passSourceAlpha[i].toLowerCase(); }
+      else if (letterPart !== null) { var letterPart = letterPart + passSourceAlpha[i].toLowerCase(); }
+
     }
-    //for loop to create 2 digit numeric portion
+    // for loop to create 2 digit numeric portion
     for (d = 0; d < 2; d++) {
       var e = Math.floor(Math.random() * 9) + 1;
       if (numberPart === null) { var numberPart = passSourceNum[e]; }
@@ -85,13 +147,81 @@ function generatePassword() {
         var numberPart = numberPart + passSourceNum[e];
 
       }
+
+
+
+      var passwordFinal = (letterPart + numberPart);
+      // alert("Your generated password: " + passwordFinal);
+      document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+
     }
-    //add all parts 
-    var passwordFinal = (letterPart + numberPart);
+  }
+
+  //letters upper case, numbers only [works]
+  else if (numericYesNo == "y" && specialYesNo == "n" && upperCaseYesNo == "y" && lowerCaseYesNo == "n") {
+    for (c = 0; c < passwordLengthLetters; c++) {
+      var i = Math.floor(Math.random() * 25) + 1;
+      console.log("this is value of i: " + i);
+      if (letterPart === null) { var letterPart = passSourceAlpha[i].toUpperCase(); }
+      else if (letterPart !== null) { var letterPart = letterPart + passSourceAlpha[i].toUpperCase(); }
+
+    }
+    // for loop to create 2 digit numeric portion
+    for (d = 0; d < 2; d++) {
+      var e = Math.floor(Math.random() * 9) + 1;
+      if (numberPart === null) { var numberPart = passSourceNum[e]; }
+      else {
+        var numberPart = numberPart + passSourceNum[e];
+
+      }
+
+
+
+      var passwordFinal = (letterPart + numberPart);
+      // alert("Your generated password: " + passwordFinal);
+      document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+
+    }
+  }
+
+
+  //letters only, upper case [works]
+
+  else if (specialYesNo == "n" && numericYesNo == "n" && upperCaseYesNo == "y" && lowerCaseYesNo == "n") {
+    //for loop to create letter part 
+    for (g = 0; g < passwordLength; g++) {
+      var i = Math.floor(Math.random() * 26) + 1;
+      console.log("this is value of i: " + i);
+      if (letterPart === null) { var letterPart = passSourceAlpha[i].toUpperCase(); }
+      else if (letterPart !== null) { var letterPart = letterPart + passSourceAlpha[i].toUpperCase(); }
+
+    }
+    var passwordFinal = (letterPart);
     console.log("passwordFinal :" + passwordFinal);
     // alert("passwordFinal :" + passwordFinal);
     // alert("Your generated password: " + passwordFinal);
     document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
-
   }
-}
+
+
+  //letters only, lower case [works]
+  else if (specialYesNo == "n" && numericYesNo == "n" && upperCaseYesNo == "n" && lowerCaseYesNo == "y") {
+    //for loop to create letter part 
+    for (g = 0; g < passwordLength; g++) {
+      var i = Math.floor(Math.random() * 26) + 1;
+      console.log("this is value of i: " + i);
+      if (letterPart === null) { var letterPart = passSourceAlpha[i].toLowerCase(); }
+      else if (letterPart !== null) { var letterPart = letterPart + passSourceAlpha[i].toLowerCase(); }
+
+    }
+    var passwordFinal = (letterPart);
+    console.log("passwordFinal :" + passwordFinal);
+    // alert("passwordFinal :" + passwordFinal);
+    // alert("Your generated password: " + passwordFinal);
+    document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+  }
+
+
+
+} //closing bracket for script
+
