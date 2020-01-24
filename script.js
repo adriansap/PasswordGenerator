@@ -33,6 +33,7 @@ function generatePassword() {
   var passwordFinal; //reset
   var letterPart = null; //initialized it
   var numberPart = null; // initialized
+  var specialPart = null;
   var passwordLength = prompt("How many characters for your password? [i.e.: 8 to 128]");
   var passwordLengthLetters = (passwordLength - 2); //leave 2 for number and special character
   var numericYesNo = prompt("Would you like to include number in your password? (y/n)");
@@ -178,6 +179,61 @@ function generatePassword() {
 
 
       var passwordFinal = (letterPart + numberPart);
+      // alert("Your generated password: " + passwordFinal);
+      document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+
+    }
+  }
+
+  //letters uppercase and special char only  [works]
+
+  else if (numericYesNo == "n" && specialYesNo == "y" && upperCaseYesNo == "y" && lowerCaseYesNo == "n") {
+    for (c = 0; c < passwordLengthLetters; c++) {
+      var i = Math.floor(Math.random() * 25) + 1;
+      console.log("this is value of i: " + i);
+      if (letterPart === null) { var letterPart = passSourceAlpha[i].toUpperCase(); }
+      else if (letterPart !== null) { var letterPart = letterPart + passSourceAlpha[i].toUpperCase(); }
+
+    }
+    // for loop to create 2 char numeric portion
+    for (d = 0; d < 2; d++) {
+      var e = Math.floor(Math.random() * 5) + 1;
+      if (specialPart === null) { var specialPart = passSourceSpecial[e]; }
+      else {
+        var specialPart = specialPart + passSourceSpecial[e];
+
+      }
+
+
+
+      var passwordFinal = (letterPart + specialPart);
+      // alert("Your generated password: " + passwordFinal);
+      document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+
+    }
+  }
+
+  //letters lowercase, special char only [works]
+  else if (numericYesNo == "n" && specialYesNo == "y" && upperCaseYesNo == "n" && lowerCaseYesNo == "y") {
+    for (c = 0; c < passwordLengthLetters; c++) {
+      var i = Math.floor(Math.random() * 25) + 1;
+      console.log("this is value of i: " + i);
+      if (letterPart === null) { var letterPart = passSourceAlpha[i].toLowerCase(); }
+      else if (letterPart !== null) { var letterPart = letterPart + passSourceAlpha[i].toLowerCase(); }
+
+    }
+    // for loop to create 2 char numeric portion
+    for (d = 0; d < 2; d++) {
+      var e = Math.floor(Math.random() * 4) + 1;
+      if (specialPart === null) { var specialPart = passSourceSpecial[e]; }
+      else {
+        var specialPart = specialPart + passSourceSpecial[e];
+
+      }
+      console.log("specialPart = " + specialPart);
+
+
+      var passwordFinal = (letterPart + specialPart);
       // alert("Your generated password: " + passwordFinal);
       document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
 
