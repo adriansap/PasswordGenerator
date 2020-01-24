@@ -76,6 +76,33 @@ function generatePassword() {
     // alert("Your generated password: " + passwordFinal);
     document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
   }
+  // condition letters only upper AND lower
+  else if (numericYesNo == "n" && specialYesNo == "n" && upperCaseYesNo == "y" && lowerCaseYesNo == "y") {
+    for (z = 0; z < passwordLengthLetters + 2; z++) {
+      var coinToss = Math.floor(Math.random() * 2) + 1;
+      var i = Math.floor(Math.random() * 25) + 1;
+      console.log("passwordLengthLetter = " + passwordLengthLetters + " z = " + z);
+      console.log("coin toss = " + coinToss);
+      if (letterPart === null) {
+        if (coinToss == 1) { letterPart = passSourceAlpha[i].toUpperCase(); } //init
+        else if (coinToss == 2) { letterPart = passSourceAlpha[i].toLowerCase(); } //init
+      }
+      else if (letterPart !== null) {
+        if (coinToss === 1) { var letterPart = letterPart + passSourceAlpha[i].toUpperCase(); }
+        else if (coinToss === 2) { var letterPart = letterPart + passSourceAlpha[i].toLowerCase(); }
+      }
+    }
+
+    console.log(i);
+    console.log(e);
+    console.log(a);
+
+
+    var passwordFinal = (letterPart);
+    console.log("passwordFinal = " + passwordFinal);
+    // alert("Your generated password: " + passwordFinal);
+    document.getElementById("password").innerHTML = passwordFinal; //send password to appear on HTML.
+  }
 
   //condition: letters [upper AND lower case], number only
 
