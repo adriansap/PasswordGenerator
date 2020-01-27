@@ -34,18 +34,29 @@ function generatePassword() {
   var letterPart = null; //initialized it
   var numberPart = null; // initialized
   var specialPart = null;
-  var passwordLength = prompt("How many characters for your password? [i.e.: 8 to 128]");
-  var passwordLengthLetters = (passwordLength - 2); //leave 2 for number and special character
+  var passwordLengthLetters;
+  getLength();
   var numericYesNo = prompt("Would you like to include number in your password? (y/n)");
+  var numericYesNo = numericYesNo.toLowerCase();
   var specialYesNo = prompt("Would you like to include a special character i.e.: &? (y/n)");
+  var specialYesNo = specialYesNo.toLowerCase();
   var upperCaseYesNo = prompt("Would you like your password to have upper case letters? (y/n)");
+  var upperCaseYesNo = upperCaseYesNo.toLowerCase();
   var lowerCaseYesNo = prompt("Would you like your password to have lower case letters? (y/n)");
+  var lowerCaseYesNo = lowerCaseYesNo.toLowerCase();
 
 
   var passSourceAlpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   var passSourceNum = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   var passSourceSpecial = ['!', '$', '&', '-', '*'];
 
+  function getLength() {
+    var passwordLength = prompt("How many characters for your password? [i.e.: 8 to 128]");
+    if (passwordLength < 8 || passwordLength > 128) {
+      prompt("Password must be between 8 and 128 characters, please try again:");
+    }
+    else { passwordLengthLetters = (passwordLength - 2); }
+  }
 
   //condition: letters [upper AND lower case], number and special character [WORKS]
 
